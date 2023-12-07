@@ -28,6 +28,22 @@
       "cwd": "${workspaceFolder}"
     },
     {
+        "name": "rescue tool",
+        "type": "lldb",
+        "request": "launch",
+        "cargo": {
+          "args": [
+            "build",
+            "-p",   
+            "rescue" 
+          ],
+        },
+        "args": [], 
+        "cwd": "${workspaceFolder}",
+        "preLaunchTask": "", 
+        "postDebugTask": "" 
+    },
+    {
       "name": "governance-script",
       "type": "lldb",
       "request": "launch",
