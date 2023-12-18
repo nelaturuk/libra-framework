@@ -106,10 +106,12 @@ module diem_framework::reconfiguration {
 
     /// Signal validators to start using new configuration. Must be called from friend config modules.
     public(friend) fun reconfigure() acquires Configuration {
+
         // Do not do anything if genesis has not finished.
         if (chain_status::is_genesis() || timestamp::now_microseconds() == 0) {
             return
         };
+
 
         let config_ref = borrow_global_mut<Configuration>(@diem_framework);
         let current_time = timestamp::now_microseconds();
@@ -127,10 +129,10 @@ module diem_framework::reconfiguration {
         // Thus, this check ensures that a transaction that does multiple "reconfiguration required" actions emits only
         // one reconfiguration event.
         //
+
         if (current_time == config_ref.last_reconfiguration_time) {
             return
         };
-
         // Reconfiguration "forces the block" to end, as mentioned above. Therefore, we must process the collected fees
         // explicitly so that staking can distribute them.
         // transaction_fee::process_collected_fees();
